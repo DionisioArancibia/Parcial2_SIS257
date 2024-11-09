@@ -35,7 +35,9 @@ onMounted(() => {
   <div class="container">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><RouterLink to="/">Inicio</RouterLink></li>
+        <li class="breadcrumb-item">
+          <RouterLink to="/">Inicio</RouterLink>
+        </li>
         <li class="breadcrumb-item active" aria-current="page">Series</li>
       </ol>
     </nav>
@@ -55,7 +57,7 @@ onMounted(() => {
             <th scope="col">Título</th>
             <th scope="col">Sinopsis</th>
             <th scope="col">Director</th>
-            <th scope="col">Categoria</th>
+            <th scope="col">Clasificacion</th>
             <th scope="col">Temporadas</th>
             <th scope="col">Fecha de Estreno</th>
           </tr>
@@ -66,7 +68,7 @@ onMounted(() => {
             <td>{{ serie.titulo }}</td>
             <td>{{ serie.sinopsis }}</td>
             <td>{{ serie.director }}</td>
-            <td>{{ serie.categoria }}</td>
+            <td>{{ serie.clasificacion }}</td>
             <td>{{ serie.temporadas }}</td>
             <td>{{ serie.fechaEstreno }}</td>
             <td>

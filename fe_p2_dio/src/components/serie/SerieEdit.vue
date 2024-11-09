@@ -11,7 +11,7 @@ const ENDPOINT = props.ENDPOINT_API ?? ''
 const titulo = ref('')
 const sinopsis = ref('')
 const director = ref('')
-const categoria = ref('')
+const clasificacion = ref('A')
 const temporadas = ref<number | null>(null)
 const fechaEstreno = ref('')
 const id = router.currentRoute.value.params['id']
@@ -23,7 +23,7 @@ async function editarSerie() {
         titulo: titulo.value,
         sinopsis: sinopsis.value,
         director: director.value,
-        categoria: categoria.value,
+        clasificacion: clasificacion.value,
         temporadas: temporadas.value,
         fechaEstreno: fechaEstreno.value
       })
@@ -35,12 +35,12 @@ async function editarSerie() {
 
 async function getSerie() {
   await http.get(`${ENDPOINT}/${id}`).then((response) => {
-    ;(titulo.value = response.data.titulo),
-      (sinopsis.value = response.data.sinopsis),
-      (director.value = response.data.director),
-      (categoria.value = response.data.categoria),
-      (temporadas.value = parseInt(response.data.temporadas)),
-      (fechaEstreno.value = response.data.fechaEstreno)
+    titulo.value = response.data.titulo
+    sinopsis.value = response.data.sinopsis
+    director.value = response.data.director
+    clasificacion.value = response.data.clasificacion
+    temporadas.value = parseInt(response.data.temporadas)
+    fechaEstreno.value = response.data.fechaEstreno
   })
 }
 
@@ -57,7 +57,9 @@ onMounted(() => {
   <div class="container">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><RouterLink to="/">Inicio</RouterLink></li>
+        <li class="breadcrumb-item">
+          <RouterLink to="/">Inicio</RouterLink>
+        </li>
         <li class="breadcrumb-item">
           <RouterLink to="/series">Series</RouterLink>
         </li>
@@ -76,53 +78,29 @@ onMounted(() => {
           <label for="titulo">Título</label>
         </div>
         <div class="form-floating mb-3">
-          <input
-            type="text"
-            class="form-control"
-            v-model="sinopsis"
-            placeholder="Sinopsis"
-            required
-          />
+          <input type="text" class="form-control" v-model="sinopsis" placeholder="Sinopsis" required />
           <label for="sinopsis">Sinopsis</label>
         </div>
         <div class="form-floating mb-3">
-          <input
-            type="text"
-            class="form-control"
-            v-model="director"
-            placeholder="Director"
-            required
-          />
+          <input type="text" class="form-control" v-model="director" placeholder="Director" required />
           <label for="director">Director</label>
         </div>
         <div class="form-floating mb-3">
-          <input
-            type="text"
-            class="form-control"
-            v-model="categoria"
-            placeholder="Categoria"
-            required
-          />
-          <label for="director">Categoria</label>
+          <select class="form-control" v-model="clasificacion" required>
+            <option value="A">A: Todo público</option>
+            <option value="B">B: Para niños</option>
+            <option value="B12">B12: Público mayor a 12 años</option>
+            <option value="B15">B15: Público mayor a 15 años</option>
+            <option value="C">C: Público mayor a 18 años</option>
+          </select>
+          <label for="clasificacion">Clasificación</label>
         </div>
         <div class="form-floating mb-3">
-          <input
-            type="number"
-            class="form-control"
-            v-model="temporadas"
-            placeholder="Temporadas"
-            required
-          />
+          <input type="number" class="form-control" v-model="temporadas" placeholder="Temporadas" required />
           <label for="temporadas">Temporadas</label>
         </div>
         <div class="form-floating mb-3">
-          <input
-            type="text"
-            class="form-control"
-            v-model="fechaEstreno"
-            placeholder="Fecha Estreno"
-            required
-          />
+          <input type="text" class="form-control" v-model="fechaEstreno" placeholder="Fecha Estreno" required />
           <label for="fechaEstreno">Fecha Estreno</label>
         </div>
         <div class="text-center mt-3">
